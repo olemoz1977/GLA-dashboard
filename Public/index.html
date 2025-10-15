@@ -1,1 +1,431 @@
+ 
+<!doctype html>
+<html lang="lt">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>GLA360 – Globalios lyderystės įsivertinimo demo</title>
+  <meta name="description" content="Neoficiali GLA360 demo versija: 5 klasteriai, 15 kompetencijų, greita savirefleksija ir radarinė diagrama." />
+  https://cdn.jsdelivr.net
+  <style>
+    :root{
+      --bg:#0b0c10; --card:#151820; --ink:#eaf0f8; --muted:#a9b4c4; --brand:#5ac8fa; --accent:#7ee081; --warn:#ffd166; --danger:#ff6b6b;
+      --ring: 0 0 0 3px rgba(90,200,250,.3);
+    }
+    @media (prefers-color-scheme: light){
+      :root{ --bg:#f7fbff; --card:#ffffff; --ink:#0e1621; --muted:#415063; --brand:#0077ff; --accent:#0aa56b; --warn:#b8860b; --danger:#c62828; }
+    }
+    *{box-sizing:border-box}
+    body{margin:0; font:16px/1.55 system-ui,-apple-system,Segoe UI,Roboto,Ubuntu,Arial,sans-serif; color:var(--ink); background:radial-gradient(1200px 700px at 10% -20%, rgba(90,200,250,.12), transparent 60%), radial-gradient(1000px 600px at 110% 10%, rgba(10,165,107,.10), transparent 50%), var(--bg);}
+    a{color:var(--brand); text-decoration:underline}
+    header{padding:24px 20px 8px; max-width:1100px; margin:0 auto;}
+    .hero{max-width:1100px; margin:0 auto; padding:16px 20px 28px;}
+    .hero h1{font-size:clamp(30px,4vw,44px); margin:.2em 0}
+    .hero p.lead{font-size:1.125rem; color:var(--muted); margin:.4em 0 1em}
+    .tag{display:inline-block; padding:.25rem .6rem; border:1px solid rgba(255,255,255,.15); border-radius:999px; color:var(--muted); font-size:.85rem}
+    .container{max-width:1100px; margin:0 auto; padding:10px 20px 40px}
+    .grid{display:grid; gap:14px}
+    .cols-3{grid-template-columns:repeat(3,minmax(0,1fr))}
+    .cols-2{grid-template-columns:repeat(2,minmax(0,1fr))}
+    @media (max-width:960px){ .cols-3{grid-template-columns:1fr 1fr} }
+    @media (max-width:680px){ .cols-3,.cols-2{grid-template-columns:1fr} }
+    .card{background:linear-gradient(180deg, rgba(255,255,255,.04), transparent 50%), var(--card); border:1px solid rgba(255,255,255,.08); border-radius:14px; padding:16px 16px 12px}
+    .card h3{margin:.2em 0 .4em; font-size:1.05rem}
+    .card p{margin:.2em 0 .6em; color:var(--muted)}
+    .pill{display:inline-flex; align-items:center; gap:.5ch; background:rgba(122,193,255,.1); color:var(--ink); border:1px solid rgba(122,193,255,.25); padding:.2rem .55rem; border-radius:999px; font-size:.8rem}
+    .list{margin:.4em 0 .2em; padding-left:1.1em}
+    .list li{margin:.25em 0}
+    section h2{font-size:clamp(22px,2.6vw,28px); margin:18px 0 10px}
+    .muted{color:var(--muted)}
+    .kbd{font:600 .85rem/1.2 ui-monospace, SFMono-Regular, Menlo, Consolas, monospace; background:rgba(255,255,255,.08); border:1px solid rgba(255,255,255,.14); padding:.15rem .35rem; border-radius:6px}
+    .flex{display:flex; gap:12px; flex-wrap:wrap; align-items:center}
+    .actions{margin-top:10px}
+    button{background:var(--brand); color:white; border:none; padding:.6rem .9rem; border-radius:10px; cursor:pointer; font-weight:600}
+    button.secondary{background:transparent; color:var(--brand); border:1px solid rgba(90,200,250,.4)}
+    button:focus{outline:none; box-shadow:var(--ring)}
+    .warn{color:var(--warn)}
+    .danger{color:var(--danger)}
+    .footer{border-top:1px solid rgba(255,255,255,.08); padding:18px 20px; color:var(--muted); font-size:.92rem}
+    details{border:1px solid rgba(255,255,255,.1); border-radius:12px; padding:10px 12px; background:rgba(255,255,255,.03)}
+    details+details{margin-top:8px}
+    details summary{cursor:pointer; font-weight:600}
+    .sr{position:absolute; width:1px; height:1px; padding:0; margin:-1px; overflow:hidden; clip:rect(0,0,0,0); white-space:nowrap; border:0}
+    .chartWrap{display:grid; grid-template-columns: 1.1fr .9fr; gap:16px}
+    @media (max-width:900px){ .chartWrap{grid-template-columns:1fr} }
+    .range{display:grid; grid-template-columns: 1fr 120px; gap:8px; align-items:center}
+    .range label{font-weight:600}
+    .range input[type="range"]{width:100%}
+    .note{font-size:.92rem; color:var(--muted)}
+    .badge{font-size:.78rem; opacity:.85}
+    .ok{color:var(--accent)}
+    .source-list li{margin:.3em 0}
+  </style>
+</head>
+<body>
+  <header>
+    <span class="tag">Neoficiali GLA360 demo</span>
+  </header>
 
+  <div class="hero" role="banner">
+    <h1>GLA360: Globalios lyderystės įsivertinimo demo</h1>
+    <p class="lead">Trumpa 5 klasterių ir 15 kompetencijų apžvalga, greita savirefleksija ir radarinė diagrama – viename puslapyje.</p>
+    <div class="flex actions">
+      #refleksija<button>Atlikti 15 kompetencijų savirefleksiją</button></a>
+      #kas-yra<button class="secondary">Kas tai ir kaip veikia?</button></a>
+    </div>
+  </div>
+
+  <main class="container">
+    <section id="kas-yra" aria-labelledby="h-kas">
+      <h2 id="h-kas">Kas yra GLA360?</h2>
+      <div class="grid cols-3">
+        <div class="card">
+          <h3>360° vertinimas</h3>
+          <p>GLA360 – tai 360° lyderystės vertinimas, pagrįstas tarptautiniais tyrimais su vadovais – nuo Fortune 500 iki mažesnių organizacijų.</p>
+          <p class="note">Šaltiniai: #saltiniaižr. apačioje</a>.</p>
+        </div>
+        <div class="card">
+          <h3>72 klausimai + 3 atviri</h3>
+          <p>Oficialus įrankis apima 72 Likerto klausimus ir 3 atvirus atsakymus, vertinant 15 kompetencijų 5 klasteriuose.</p>
+        </div>
+        <div class="card">
+          <h3>Nuo sąmoningumo – prie veiksmų</h3>
+          <p>Ataskaitoje pateikiama radarinė diagrama, gylio pjūviai ir aiškūs žingsniai augimui (debrief su koučeriu).</p>
+        </div>
+      </div>
+    </section>
+
+    <section id="klasteriai" aria-labelledby="h-klasteriai">
+      <h2 id="h-klasteriai">5 klasteriai ir 15 kompetencijų</h2>
+      <div class="grid cols-3">
+        <div class="card">
+          <span class="pill">Communication</span>
+          <h3>Bendravimas</h3>
+          <ul class="list">
+            <li><strong>Integriteto demonstravimas</strong> – veiksmai atitinka vertybes ir įsipareigojimus.</li>
+            <li><strong>Konstruktyvaus dialogo skatinimas</strong> – kuriama atvira, saugi diskusijų erdvė.</li>
+            <li><strong>Bendros vizijos kūrimas</strong> – aiškiai suvienija komandą kryptingiems tikslams.</li>
+          </ul>
+        </div>
+
+        <div class="card">
+          <span class="pill">Assure Success</span>
+          <h3>Užtikrinti sėkmę</h3>
+          <ul class="list">
+            <li><strong>Technologinio išmanymo ugdymas</strong> – taiko technologijas rezultatams gerinti.</li>
+            <li><strong>Klientų pasitenkinimo užtikrinimas</strong> – sprendimai orientuoti į kliento vertę.</li>
+            <li><strong>Konkurencinio pranašumo išlaikymas</strong> – nuosekliai stiprina skirtumus rinkoje.</li>
+          </ul>
+        </div>
+
+        <div class="card">
+          <span class="pill">Engaging People</span>
+          <h3>Įtraukti žmones</h3>
+          <ul class="list">
+            <li><strong>Žmonių ugdymas</strong> – kryptingai augina kompetencijas.</li>
+            <li><strong>Partnerystės kūrimas</strong> – mezga abipusiai naudingus ryšius.</li>
+            <li><strong>Lyderystės dalijimasis</strong> – perduoda atsakomybę ir suteikia erdvės augti.</li>
+          </ul>
+        </div>
+
+        <div class="card">
+          <span class="pill">Continuous Change</span>
+          <h3>Nuolatiniai pokyčiai</h3>
+          <ul class="list">
+            <li><strong>Asmeninis meistriškumas</strong> – savivalda, refleksija, disciplinuotas mokymasis.</li>
+            <li><strong>Galimybių numatymas</strong> – mato tendencijas, veikia iš anksto.</li>
+            <li><strong>Pokyčių lyderystė</strong> – mobilizuoja komandą transformacijai.</li>
+          </ul>
+        </div>
+
+        <div class="card">
+          <span class="pill">Boundary-less Inclusion</span>
+          <h3>Įtraukus be ribų</h3>
+          <ul class="list">
+            <li><strong>Žmonių įgalinimas</strong> – suteikia autonomiją ir sprendimo teisę.</li>
+            <li><strong>Globalus mąstymas</strong> – priima sprendimus tarpkultūriniame kontekste.</li>
+            <li><strong>Įvairovės vertinimas</strong> – paverčia skirtumus efektyvumo šaltiniu.</li>
+          </ul>
+        </div>
+      </div>
+      <p class="note">Kompetencijų sąrašas ir grupavimas – pagal GLA360 aprašus (#saltiniaišaltiniai</a>).</p>
+    </section>
+
+    <section id="procesas" aria-labelledby="h-procesas">
+      <h2 id="h-procesas">Kaip veikia oficialus procesas?</h2>
+      <div class="grid cols-4 cols-3">
+        <div class="card"><h3>1. Respondentai</h3><p>Pridedami vadovas, kolegos, pavaldiniai, kiti suinteresuotieji (anonimiškai).</p></div>
+        <div class="card"><h3>2. Apklausa</h3><p>72 klausimai (Likerto) + 3 atviri, 12+ kalbų, automatizuoti priminimai.</p></div>
+        <div class="card"><h3>3. Ataskaita</h3><p>45–50+ psl. su radaru, gylio pjūviais ir palyginimais tarp grupių.</p></div>
+        <div class="card"><h3>4. Debrief</h3><p>Profesionali sesija: prioritetai, veiksmai, progreso matavimas.</p></div>
+      </div>
+      <p class="note">Šios nuostatos apibendrintos iš oficialių GLA360 tiekėjų aprašų (#saltiniaižr. šaltinius</a>).</p>
+    </section>
+
+    <section id="refleksija" aria-labelledby="h-refleksija">
+      <h2 id="h-refleksija">Greita savirefleksija (demo): 15 kompetencijų</h2>
+      <p class="muted">Įveskite savo savivertinimą skalėje 1–5 (1 – retai/elgseną taikau silpnai; 5 – nuosekliai/stipriai). Duomenys saugomi tik jūsų naršyklėje (<span class="kbd">localStorage</span>).</p>
+
+      <div class="chartWrap">
+        <section aria-label="15 kompetencijų slankikliai">
+          <div class="grid cols-2">
+            <!-- Communication -->
+            <div class="card">
+              <h3>Communication</h3>
+              <div class="range">
+                <label for="c1">Integriteto demonstravimas</label>
+                <input id="c1" type="range" min="1" max="5" value="3" />
+              </div>
+              <div class="range">
+                <label for="c2">Konstruktyvaus dialogo skatinimas</label>
+                <input id="c2" type="range" min="1" max="5" value="3" />
+              </div>
+              <div class="range">
+                <label for="c3">Bendros vizijos kūrimas</label>
+                <input id="c3" type="range" min="1" max="5" value="3" />
+              </div>
+            </div>
+
+            <!-- Assure Success -->
+            <div class="card">
+              <h3>Assure Success</h3>
+              <div class="range">
+                <label for="c4">Technologinio išmanymo ugdymas</label>
+                <input id="c4" type="range" min="1" max="5" value="3" />
+              </div>
+              <div class="range">
+                <label for="c5">Klientų pasitenkinimo užtikrinimas</label>
+                <input id="c5" type="range" min="1" max="5" value="3" />
+              </div>
+              <div class="range">
+                <label for="c6">Konkurencinio pranašumo išlaikymas</label>
+                <input id="c6" type="range" min="1" max="5" value="3" />
+              </div>
+            </div>
+
+            <!-- Engaging People -->
+            <div class="card">
+              <h3>Engaging People</h3>
+              <div class="range">
+                <label for="c7">Žmonių ugdymas</label>
+                <input id="c7" type="range" min="1" max="5" value="3" />
+              </div>
+              <div class="range">
+                <label for="c8">Partnerystės kūrimas</label>
+                <input id="c8" type="range" min="1" max="5" value="3" />
+              </div>
+              <div class="range">
+                <label for="c9">Lyderystės dalijimasis</label>
+                <input id="c9" type="range" min="1" max="5" value="3" />
+              </div>
+            </div>
+
+            <!-- Continuous Change -->
+            <div class="card">
+              <h3>Continuous Change</h3>
+              <div class="range">
+                <label for="c10">Asmeninis meistriškumas</label>
+                <input id="c10" type="range" min="1" max="5" value="3" />
+              </div>
+              <div class="range">
+                <label for="c11">Galimybių numatymas</label>
+                <input id="c11" type="range" min="1" max="5" value="3" />
+              </div>
+              <div class="range">
+                <label for="c12">Pokyčių lyderystė</label>
+                <input id="c12" type="range" min="1" max="5" value="3" />
+              </div>
+            </div>
+
+            <!-- Boundary-less Inclusion -->
+            <div class="card">
+              <h3>Boundary‑less Inclusion</h3>
+              <div class="range">
+                <label for="c13">Žmonių įgalinimas</label>
+                <input id="c13" type="range" min="1" max="5" value="3" />
+              </div>
+              <div class="range">
+                <label for="c14">Globalus mąstymas</label>
+                <input id="c14" type="range" min="1" max="5" value="3" />
+              </div>
+              <div class="range">
+                <label for="c15">Įvairovės vertinimas</label>
+                <input id="c15" type="range" min="1" max="5" value="3" />
+              </div>
+            </div>
+          </div>
+
+          <div class="card">
+            <h3>Radarinė diagrama</h3>
+            <canvas id="radar" aria-label="Radarinė kompetencijų diagrama" role="img"></canvas>
+            <p class="note">Jei diagrama nerodoma – CDN gali būti blokuojamas. Puslapis veiks ir be jos.</p>
+            <div class="flex">
+              <button id="reset">Išvalyti</button>
+              <button id="save">Atsisiųsti JSON</button>
+              <button id="png">Atsisiųsti PNG</button>
+            </div>
+          </div>
+        </section>
+      </div>
+
+      <div class="card" id="prioritetai">
+        <h3>Automatiškai parinkti 2 prioritetai</h3>
+        <p class="muted">Pagal mažiausiai įvertintas sritis (lygūs – sprendžia pagal įtaką klasteriui).</p>
+        <ol id="prioList"></ol>
+        <details>
+          <summary>Kaip kurti 30–60–90 d. veiksmų planą?</summary>
+          <ul class="list">
+            <li><strong>30 d.</strong> – 1 mikro-įprotis + 1 matuojama elgsena (pvz., „kas savaitę duodu 2 kryptingus grįžtamuosius ryšius“).</li>
+            <li><strong>60 d.</strong> – plėtimasis į platesnį kontekstą (tarpfunkcinė partnerystė, klientų įžvalgos).</li>
+            <li><strong>90 d.</strong> – sisteminis sprendimas (procesas/standartas), matuojamas komandos rodikliais.</li>
+          </ul>
+        </details>
+      </div>
+    </section>
+
+    <section id="duk" aria-labelledby="h-duk">
+      <h2 id="h-duk">DUK ir ribojimai</h2>
+      <details>
+        <summary>Ar tai oficialus GLA360?</summary>
+        <p>Ne. Tai mokomasis demo: 15 savirefleksijos slankiklių ≠ oficialus 360° vertinimas su respondentais ir pilna ataskaita.</p>
+      </details>
+      <details>
+        <summary>Kaip tai integruoti į organizaciją?</summary>
+        <p>Naudokite kaip „pre‑read“ ar mokymų modulį. Oficialiam vertinimui kreipkitės į licencijuotus tiekėjus (nuorodos – #saltiniaižemiau</a>).</p>
+      </details>
+    </section>
+
+    <section id="saltiniai" aria-labelledby="h-saltiniai">
+      <h2 id="h-saltiniai">Šaltiniai</h2>
+      <ul class="source-list">
+        <li>Global Coach Group: „What is the GLA360?“ (72 klausimai, 15 kompetencijų, ataskaitos struktūra) – <a href="https://globalcoachgroup.com/gla360/" target="_blank" rel="noopener">globalcoachgroup.com/gla360</a></li>
+        <li>Sisu Communication: „GLA360 – 15 kompetencijų 5 klasteriuose“ – <a href="https://www.sisucommunication.com/assessments/global-leadership-assessment-gla360/" target="_blank" rel="noopener">sisucommunication.com</a></li>
+        <li>LEAPING KOI: metodikos santrauka (norminė grupė, 72 Q, 3 atviri) – <a href="https://www.leapingkoi.com/gla360.html" target="_blank" rel="noopener">leapingkoi.com/gla360.html</a></li>
+        <li>Marshall Goldsmith SCC: „From awareness to action“ (elgesių fokusas, radaras) – <a href="https://mgscc.net/gla360/" target="_blank" rel="noopener">mgscc.net/gla360</a></li>
+      </ul>
+      <p class="note">Šiame puslapyje esantys aprašymai – edukacinė santrauka, nekomercinis naudojimas.</p>
+      <p class="note">Paskutinį kartą atnaujinta: 2025‑10‑15</p>
+    </section>
+  </main>
+
+  <footer class="footer">
+    <div>© 2025 GLA360 demo (mokymosi tikslais). Parengė Oleg Mozochin su M365 Copilot pagalba.</div>
+  </footer>
+
+  <!-- Chart.js iš CDN (nebūtina, bet gerina patirtį) -->
+  https://cdn.jsdelivr.net/npm/chart.js@4.4.4/dist/chart.umd.min.js</script>
+  <script>
+    // --- Modelis
+    const labels = [
+      "Integritetas","Dialogas","Bendra vizija",
+      "Tech. išmanymas","Klientų pasitenkinimas","Konkurencinis pranašumas",
+      "Žmonių ugdymas","Partnerystės","Dalijimasis lyderyste",
+      "Asmeninis meistriškumas","Galimybių numatymas","Pokyčių lyderystė",
+      "Įgalinimas","Globalus mąstymas","Įvairovė"
+    ];
+    const ids = ["c1","c2","c3","c4","c5","c6","c7","c8","c9","c10","c11","c12","c13","c14","c15"];
+
+    // --- LocalStorage
+    const saved = JSON.parse(localStorage.getItem("gla360-demo")||"{}");
+    ids.forEach(id => {
+      const el = document.getElementById(id);
+      if(saved[id]) el.value = saved[id];
+      el.addEventListener("input", refresh);
+    });
+
+    // --- Chart
+    let radarChart=null;
+    function makeData(){
+      return ids.map(id => Number(document.getElementById(id).value));
+    }
+    function refresh(){
+      const data = makeData();
+      localStorage.setItem("gla360-demo", JSON.stringify(Object.fromEntries(ids.map((id,i)=>[id,data[i]]))));
+      updateChart(data);
+      updatePriorities(data);
+    }
+    function updateChart(data){
+      const ctx = document.getElementById("radar");
+      if(!ctx || !window.Chart) return;
+      if(radarChart){ radarChart.data.datasets[0].data = data; radarChart.update(); return; }
+      radarChart = new Chart(ctx, {
+        type: "radar",
+        data: {
+          labels,
+          datasets: [{ label:"Savirefleksija", data, fill:true,
+            backgroundColor:"rgba(90,200,250,.18)", borderColor:"rgba(90,200,250,.9)", pointBackgroundColor:"#5ac8fa"}]
+        },
+        options: {
+          scales: { r:{ suggestedMin:1, suggestedMax:5, ticks:{ stepSize:1 }}},
+          plugins: { legend:{ display:false } }
+        }
+      });
+    }
+    function updatePriorities(data){
+      // rask 2 mažiausias vertes; jei lygios – pirmumas kompetencijoms iš skirtingų klasterių
+      const items = data.map((v,i)=>({i, v, label:labels[i], cluster: Math.floor(i/3)}));
+      items.sort((a,b)=>a.v-b.v);
+      const out=[items[0]];
+      for(const it of items.slice(1)){
+        if(out.length===1 && it.cluster!==out[0].cluster){ out.push(it); break; }
+      }
+      if(out.length<2) out.push(items[1]);
+      const list = document.getElementById("prioList");
+      list.innerHTML = "";
+      out.forEach(x=>{
+        const li=document.createElement("li");
+        li.innerHTML = `<strong>${x.label}</strong> – siūlomas mikro‑įprotis:
+        <em>${suggestion(x.i)}</em>`;
+        list.appendChild(li);
+      });
+    }
+    function suggestion(idx){
+      const s = [
+        // Communication
+        "Kas savaitę: 1 sprendimo kontekstas + ką/ kodėl/ kaip; fiksuokite susitarimus raštu.",
+        "Susitikimuose: 2 atviros klausimų raundai prieš priimant sprendimą.",
+        "Kiekvienam sprintui: 1 skaidrė su tikslo metrika ir „kodėl tai svarbu“.",
+        // Assure Success
+        "Kas dvi savaites: 30 min. technologijų peržiūra + 1 pritaikymas komandoje.",
+        "Įveskite NPS/CSAT atsiliepimų ritmą ir aptarkite 3 įžvalgas per mėnesį.",
+        "Kiekvieną ketvirtį: 2 konkurentų iniciatyvų „greita analizė“ + 1 atsako veiksmas.",
+        // Engaging People
+        "1:1 pokalbiuose: vienas konkretaus įgūdžio tikslas + feedback-as kas 2 sav.",
+        "Kiekvieną mėnesį: 1 nauja partnerystė arba stiprinamas esamas ryšys.",
+        "Kas savaitę deleguokite sprendimą + apibrėžkite sėkmės kriterijus.",
+        // Continuous Change
+        "Kasdien: 10 min. refleksija (kas pavyko/ ką keičiu rytoj) + veiksmų įrašas.",
+        "Mėnesį prieš terminą: 2 scenarijai (geriausias/blogiausias) ir trigeriai veiksmui.",
+        "Kiekvienam pokyčiui: „kas ką kada kodėl“ planas + 2 greiti laimėjimai.",
+        // Boundary-less Inclusion
+        "Suteikite komandos nariui sprendimo teisę vienoje srityje + aiškūs rėmai.",
+        "Kartą per mėnesį: sprendimo peržiūra per 3 rinkų/ kultūrų perspektyvą.",
+        "Susitikimuose: „viena sėkmė iš skirtingumo“ – 2 min. dalinimosi ratas."
+      ];
+      return s[idx] || "Apibrėžkite konkretų, matuojamą elgesį ir ritmą.";
+    }
+
+    // --- Mygtukai
+    document.getElementById("reset").addEventListener("click", ()=>{
+      ids.forEach(id=> document.getElementById(id).value = 3);
+      localStorage.removeItem("gla360-demo");
+      refresh();
+    });
+    document.getElementById("save").addEventListener("click", ()=>{
+      const blob=new Blob([JSON.stringify(Object.fromEntries(ids.map((id,i)=>[labels[i], Number(document.getElementById(id).value)])), null, 2)], {type:"application/json"});
+      const a=document.createElement("a");
+      a.href=URL.createObjectURL(blob); a.download="gla360-demo.json"; a.click();
+      setTimeout(()=>URL.revokeObjectURL(a.href),2000);
+    });
+    document.getElementById("png").addEventListener("click", ()=>{
+      if(!radarChart) return;
+      const url = radarChart.toBase64Image();
+      const a=document.createElement("a"); a.href=url; a.download="gla360-radar.png"; a.click();
+    });
+
+    // --- Init
+    refresh();
+  </script>
+</body>
+</html>
+ 
